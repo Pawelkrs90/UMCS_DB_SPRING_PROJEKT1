@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    
+    
+    <bean id="userDaoJDBC" class="com.project.pmalek_project.repository.dao.impl.UserDaoJDBCImpl" />
+    <bean id="bookDaoJDBC" class="com.project.pmalek_project.repository.dao.impl.BookDaoJDBCImpl" />+
+    <bean id="bookOrderDaoJDBC" class="com.project.pmalek_project.repository.dao.impl.BookOrderDaoJDBCImpl" />
+
+    <bean id="libraryDto" class="com.project.pmalek_project.repository.dto.impl.LibraryDtoImpl" />
+    
+    <bean id="userService" class="com.project.pmalek_project.services.impl.UserServiceImpl" >
+        <property name="userDao" ref="userDaoJDBC"></property>
+    </bean>
+
+    <bean id="bookService" class="com.project.pmalek_project.services.impl.BookServiceImpl" >
+        <property name="bookDao" ref="bookDaoJDBC"></property>
+    </bean>
+    
+    <bean id="bookOrderService" class="com.project.pmalek_project.services.impl.BookOrderServiceImpl" >
+        <property name="bookOrderDao" ref="bookOrderDaoJDBC"></property>
+    </bean>
+    
+    <bean id="libraryService" class="com.project.pmalek_project.services.impl.LibraryServiceImpl" >
+        <property name="libraryDto" ref="libraryDto"></property>
+    </bean>
+
+    <bean id="appController" class="com.project.pmalek_project.PmalekProjectApplication">
+        <property name="userService" ref="userService"></property>
+        <property name="bookService" ref="bookService"></property>
+        <property name="libraryService" ref="libraryService"></property>
+    </bean>
+
+    <bean id="libraryFacade" class="com.project.pmalek_project.facade.impl.LibraryFacadeImpl">
+        <property name="userService" ref="userService"></property>
+        <property name="bookService" ref="bookService"></property>
+        <property name="bookOrderService" ref="bookOrderService"></property>
+         <property name="libraryService" ref="libraryService"></property>
+    </bean>
+    
+    
+    <context:component-scan base-package="com.*" />
+    <tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager" />
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<property name="dataSource" ref="dataSource" />
+    </bean>
+
+
+</beans>
