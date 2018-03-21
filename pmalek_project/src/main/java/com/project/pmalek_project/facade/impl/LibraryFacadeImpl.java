@@ -12,7 +12,6 @@ import com.project.pmalek_project.services.LibraryService;
 import com.project.pmalek_project.services.UserService;
 import java.time.LocalDate;
 import java.time.Month;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -34,7 +33,7 @@ public class LibraryFacadeImpl implements LibraryFacade {
         this.bookOrderService = bookOrderService;
     }
     
-     @Autowired
+    @Autowired
     public void setBookService(BookService bookSevice){
         this.bookSevice = bookSevice;
     }
@@ -95,9 +94,7 @@ public class LibraryFacadeImpl implements LibraryFacade {
         }else{
             /*TO DO
             
-            
                 CONSTANT ERROR CODES
-            
             */
             result.setErrorCode(1);  
             result.setErrorDescription("BOOK NOT AVAILIBLE");
@@ -117,8 +114,7 @@ public class LibraryFacadeImpl implements LibraryFacade {
     @Override
     public Result reportDestroyedBook(User user, Book book) {
        
-        
-        
+        return null; 
     }
 
     @Override
